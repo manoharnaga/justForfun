@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View,Text,StyleSheet,Platform,StatusBar,SafeAreaView,Image} from "react-native";
-import TextBox from "./TextBox";
-import TextToImg from "./TexttoImg";
+import TextBoxes from "./textbox-utils/TextBoxes";
+import TextToImg from "./textbox-utils/TexttoImg";
 
 const App = () => {
   const [imageUrl, setImageUrl] = useState('');
@@ -35,7 +35,7 @@ const App = () => {
             backgroundColor: "#660066",
           }}
         ></View>
-        <TextBox key={3}/>
+        <TextBoxes />
       </View>
 
       <View
@@ -52,7 +52,7 @@ const App = () => {
           // resizeMode="cover"
         />
       ) : (
-        <Text style={styles.placeholderText}>Enter something to generate an image</Text>
+        <Text style={styles.placeholderText}></Text>
       )}
       </View>
     </SafeAreaView>

@@ -3,13 +3,11 @@ import { View, Text, TextInput, StyleSheet, Pressable } from "react-native";
 import Draggable from "react-native-draggable";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const TextBox = () => {
+const TextBox = ({id,focusedBox}) => {
   const [rotateBy, setRotateBy] = useState(-5);
-  const [isFocused, setIsFocused] = useState(false);
-  const [text, setText] = useState("Helo world");
-  const [textSize, setTextSize] = useState(35);
-  const [buttonsDisabled, setButtonsDisabled] = useState(true);
-
+  const [text, setText] = useState("");
+  const [textSize, setTextSize] = useState(17);
+  
   const handleTextSizeChange = (change) => {
     setTextSize((prevSize) => prevSize + change);
   };
@@ -18,16 +16,12 @@ const TextBox = () => {
     setRotateBy((prevAngle) => prevAngle + change);
   };
 
-  const handleFocus = () => {
-    setIsFocused(true);
-  };
-
-  const handelBlur = () => {
-    setIsFocused(false);
-  };
-
   return (
     <View style={{ flex: 1}}>
+      {
+        (focusedBox==id) && 
+        (
+      <View style={{flex: 1}}>
       <View style={{ flex: 1,flexDirection: "row" }}>
         <View
           style={{
@@ -37,7 +31,6 @@ const TextBox = () => {
         >
           <Pressable
             onPress={() => handleTextSizeChange(2)}
-            disabled={!isFocused}
             style={({ pressed }) => [
               styles.button,
               {
@@ -56,7 +49,6 @@ const TextBox = () => {
         >
           <Pressable
             onPress={() => handleTextSizeChange(-2)}
-            disabled={!isFocused}
             style={({ pressed }) => [
               styles.button,
               {
@@ -75,7 +67,7 @@ const TextBox = () => {
             backgroundColor: "#fff",
           }}
         >
-          <Pressable disabled={!isFocused} onPress={() => handleRotateText(-3)}>
+          <Pressable onPress={() => handleRotateText(-3)}>
             <Icon name="rotate-left" size={30} color="black" />
           </Pressable>
         </View>
@@ -85,18 +77,21 @@ const TextBox = () => {
             backgroundColor: "#fff",
           }}
         >
-          <Pressable disabled={!isFocused} onPress={() => handleRotateText(3)}>
+          <Pressable onPress={() => handleRotateText(3)}>
             <Icon name="rotate-right" size={30} color="black" />
           </Pressable>
         </View>
       </View>
+     </View>
+      )
+    }
       <Draggable x={0} y={0} position="absolute" style={{zIndex:5}}>
         <View style={{backgroundColor:"red"}}>
           <TextInput
             style={{
               fontSize: textSize,
               borderWidth: 5,
-              transform: [{ rotate: rotateBy + "deg" }],
+              transform: [{ rotate: `${rotateBy}deg` }],
             }}
             value={text}
             onChangeText={(inputText) => {
@@ -104,24 +99,11 @@ const TextBox = () => {
               setText(inputText);
             }}
             placeholder="Type something..."
-            onFocus={handleFocus}
-            onBlur={handelBlur}
+            focusable
           />
         </View>
       </Draggable>
     </View>
-
-    //   <View style={styles.container}>
-    //     <TextInput
-    //       style={{
-    //         fontSize: 15,
-    //         borderWidth: 1,
-    //         padding: 10,
-    //         transform: [{ rotate: rotateBy+"deg" }], // To make text input readable
-    //       }}
-    //       placeholder="Type something..."
-    //     />
-    //   </View>
   );
 };
 

@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "proj",
+    "name": "memeMaker",
     "slug": "proj",
     "version": "1.0.0",
-    "orientation": "landscape",
+    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
